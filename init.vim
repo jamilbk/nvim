@@ -60,6 +60,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-airline/vim-airline'
+Plug 'ellisonleao/gruvbox.nvim'
 call plug#end()
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -67,6 +68,8 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+colorscheme gruvbox
 
 " various prefs
 set foldmethod=syntax
