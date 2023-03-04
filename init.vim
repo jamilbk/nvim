@@ -110,10 +110,7 @@ autocmd BufEnter ControlP let b:ale_enabled = 0
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
 let g:ale_fixers = ['prettier']
-let g:ale_pattern_options = {
-  'env-vars.mdx': {'ale_fixers': []},
-  'reference/rest-api': {'ale_fixers': []}
-}
+let g:ale_pattern_options = {'env-vars.mdx': {'ale_fixers': []}, 'reference/rest-api': {'ale_fixers': []}}
 
 " Speed up grep and Ctrl-P
 if executable('rg')
