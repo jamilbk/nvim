@@ -4,6 +4,7 @@
 " source ~/.vim/vimrc
 
 call plug#begin('~/.vim/plugged')
+Plug 'udalov/kotlin-vim'
 Plug 'github/copilot.vim'
 Plug 'jxnblk/vim-mdx-js'
 Plug 'mxw/vim-jsx'
@@ -107,9 +108,23 @@ let g:ale_elixir_credo_strict = 1
 " Fix Ctrl-P hangs with VIM-ALE
 autocmd BufEnter ControlP let b:ale_enabled = 0
 
+" Java and Kotlin like 4
+autocmd Filetype java setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype kotlin setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+
+" Swift likes 2
+autocmd Filetype swift setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+
+
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
-let g:ale_fixers = ['prettier']
+let g:ale_fixers = {
+      \ 'markdown': ['prettier'], 'mdx': ['prettier'],
+      \ 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines']
+      \}
+let g:ale_linters = {
+      \'rust': ['analyzer'],
+      \}
 let g:ale_pattern_options = {'env-vars.mdx': {'ale_fixers': []}, 'reference/rest-api': {'ale_fixers': []}}
 
 " Speed up grep and Ctrl-P
