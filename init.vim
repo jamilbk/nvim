@@ -3,7 +3,12 @@
 " let &packpath = &runtimepath
 " source ~/.vim/vimrc
 
+" support project-local config
+set exrc
+set secure
+
 call plug#begin('~/.vim/plugged')
+Plug 'keith/xcconfig.vim'
 Plug 'udalov/kotlin-vim'
 Plug 'github/copilot.vim'
 Plug 'jxnblk/vim-mdx-js'
@@ -11,6 +16,7 @@ Plug 'mxw/vim-jsx'
 Plug 'junegunn/vim-easy-align'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'mattreduce/vim-mix'
+Plug 'mhinz/vim-mix-format'
 Plug 'BeneCollyridam/futhark-vim'
 Plug 'pearofducks/ansible-vim'
 Plug 'mfukar/robotframework-vim'
@@ -63,11 +69,22 @@ Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-airline/vim-airline'
 Plug 'ellisonleao/gruvbox.nvim'
+Plug 'navarasu/onedark.nvim'
 call plug#end()
 
 " Uses gui colors for term nvim
 set termguicolors
 colorscheme gruvbox
+"let g:onedark_config = {
+"  \ 'style': 'deep',
+"  \ 'toggle_style_key': '<leader>ts',
+"  \ 'ending_tildes': v:true,
+"  \ 'diagnostics': {
+"    \ 'darker': v:false,
+"    \ 'background': v:false,
+"  \ },
+"\ }
+"colorscheme onedark
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
@@ -115,17 +132,50 @@ autocmd Filetype kotlin setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 " Swift likes 2
 autocmd Filetype swift setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
+" ALE's mix_format has issues respecting the .formatter.exs file, so use vim-mix-format instead.
+" let g:mix_format_on_save = 1
+" let g:mix_format_silent_errors = 1
 
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
-      \ 'markdown': ['prettier'], 'mdx': ['prettier'],
-      \ 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines']
+      \ 'yaml': ['trim_whitespace', 'remove_trailing_lines'],
+      \ 'html': ['prettier'],
+      \ 'markdown': ['prettier'],
+      \ 'mdx': ['prettier'],
+      \ 'swift': ['apple-swift-format', 'trim_whitespace', 'remove_trailing_lines'],
+      \ 'toml': ['trim_whitespace', 'remove_trailing_lines'],
+      \ 'kotlin': ['trim_whitespace', 'remove_trailing_lines'],
+      \ 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'],
+      \ 'javascript': ['prettier'],
+      \ 'jsx': ['prettier'],
+      \ 'sh': ['shfmt'],
+      \ 'typescript': ['prettier'],
+      \ 'jsonc': ['prettier'], 
+      \ 'javascriptreact': ['prettier'],
+      \ 'typescriptreact': ['prettier'],
       \}
+
+let g:ale_sh_shfmt_options = '-i 4'
+
 let g:ale_linters = {
+      \'kotlin': ['ktlint'],
+      \'swift': ['swiftlint'],
       \'rust': ['analyzer'],
+      \'sh': ['shellcheck'],
       \}
-let g:ale_pattern_options = {'env-vars.mdx': {'ale_fixers': []}, 'reference/rest-api': {'ale_fixers': []}}
+
+let g:ale_rust_rustfmt_options = '--edition 2021'
+
+" This will disable fixing on certain path matches.
+" let g:ale_pattern_options = {'env-vars.mdx': {'ale_fixers': []}, 'reference/rest-api': {'ale_fixers': []}}
+let g:ale_pattern_options = {
+      \ 'elixir/apps/web/assets/tailwind.config.js': {'ale_fixers': []},
+      \}
+
+let g:copilot_filetypes = {
+      \ '*': v:true,
+      \}
 
 " Speed up grep and Ctrl-P
 if executable('rg')
@@ -189,6 +239,9 @@ else
   highlight OverLength ctermbg=188 guibg=#e1e1e1
   set background=light
 endif
+
+" Swap visual selection with the previously deleted selection
+vnoremap <C-X> <Esc>`.``gvP``P
 
 " Everyone loves italics
 highlight Comment cterm=italic gui=italic
