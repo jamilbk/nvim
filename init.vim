@@ -139,11 +139,12 @@ autocmd Filetype swift setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
+      \ 'terraform': ['terraform'],
       \ 'yaml': ['trim_whitespace', 'remove_trailing_lines'],
       \ 'html': ['prettier'],
       \ 'markdown': ['prettier'],
       \ 'mdx': ['prettier'],
-      \ 'swift': ['apple-swift-format', 'trim_whitespace', 'remove_trailing_lines'],
+      \ 'swift': ['trim_whitespace', 'remove_trailing_lines'],
       \ 'toml': ['trim_whitespace', 'remove_trailing_lines'],
       \ 'kotlin': ['trim_whitespace', 'remove_trailing_lines'],
       \ 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'],
@@ -152,11 +153,13 @@ let g:ale_fixers = {
       \ 'sh': ['shfmt'],
       \ 'typescript': ['prettier'],
       \ 'jsonc': ['prettier'], 
+      \ 'json': ['prettier'], 
       \ 'javascriptreact': ['prettier'],
       \ 'typescriptreact': ['prettier'],
       \}
 
 let g:ale_sh_shfmt_options = '-i 4'
+let g:ale_swift_swiftformat_options = '--indent 2'
 
 let g:ale_linters = {
       \'kotlin': ['ktlint'],
