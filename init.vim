@@ -8,6 +8,7 @@ set exrc
 set secure
 
 call plug#begin('~/.vim/plugged')
+Plug 'ziglang/zig.vim'
 Plug 'keith/xcconfig.vim'
 Plug 'udalov/kotlin-vim'
 Plug 'github/copilot.vim'
@@ -128,6 +129,7 @@ autocmd BufEnter ControlP let b:ale_enabled = 0
 " Java and Kotlin like 4
 autocmd Filetype java setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype kotlin setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype sh setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 
 " Swift likes 2
 autocmd Filetype swift setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
@@ -142,13 +144,16 @@ let g:ale_fixers = {
       \ 'terraform': ['terraform'],
       \ 'yaml': ['trim_whitespace', 'remove_trailing_lines'],
       \ 'html': ['prettier'],
+      \ 'svg': ['prettier'],
       \ 'markdown': ['prettier'],
+      \ 'markdown.mdx': ['prettier'],
       \ 'mdx': ['prettier'],
       \ 'swift': ['trim_whitespace', 'remove_trailing_lines'],
       \ 'toml': ['trim_whitespace', 'remove_trailing_lines'],
       \ 'kotlin': ['trim_whitespace', 'remove_trailing_lines'],
       \ 'rust': ['rustfmt', 'trim_whitespace', 'remove_trailing_lines'],
       \ 'javascript': ['prettier'],
+      \ 'css': ['prettier'],
       \ 'jsx': ['prettier'],
       \ 'sh': ['shfmt'],
       \ 'typescript': ['prettier'],
@@ -169,12 +174,6 @@ let g:ale_linters = {
       \}
 
 let g:ale_rust_rustfmt_options = '--edition 2021'
-
-" This will disable fixing on certain path matches.
-" let g:ale_pattern_options = {'env-vars.mdx': {'ale_fixers': []}, 'reference/rest-api': {'ale_fixers': []}}
-let g:ale_pattern_options = {
-      \ 'elixir/apps/web/assets/tailwind.config.js': {'ale_fixers': []},
-      \}
 
 let g:copilot_filetypes = {
       \ '*': v:true,
