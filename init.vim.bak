@@ -8,6 +8,7 @@ set exrc
 set secure
 
 call plug#begin('~/.vim/plugged')
+Plug 'neovim/nvim-lspconfig'
 Plug 'ziglang/zig.vim'
 Plug 'keith/xcconfig.vim'
 Plug 'udalov/kotlin-vim'
@@ -141,7 +142,7 @@ autocmd Filetype swift setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
 " Set this variable to 1 to fix files when you save them.
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
-      \ 'terraform': ['terraform'],
+      \ 'terraform': ['terraform', 'trim_whitespace', 'remove_trailing_lines'],
       \ 'yaml': ['trim_whitespace', 'remove_trailing_lines'],
       \ 'html': ['prettier'],
       \ 'svg': ['prettier'],
@@ -161,6 +162,7 @@ let g:ale_fixers = {
       \ 'json': ['prettier'], 
       \ 'javascriptreact': ['prettier'],
       \ 'typescriptreact': ['prettier'],
+      \ 'elixir': ['trim_whitespace', 'remove_trailing_lines'],
       \}
 
 let g:ale_sh_shfmt_options = '-i 4'
